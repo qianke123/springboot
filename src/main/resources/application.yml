@@ -18,4 +18,4 @@ myTopic: boot-acitvemq-topic
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.88.132:8080/eureka/ # 注册服务的地址
+      defaultZone: http://192.168.88.128:8888/eureka/, http://192.168.88.129:8888/eureka

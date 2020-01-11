@@ -17,7 +17,7 @@ public class QueueConsumer {
      * @param textMessage 接收文本类型的消息
      * @throws JMSException
      */
-    @JmsListener(destination = "${myTopic}")
+    // @JmsListener(destination = "${myTopic}")
     public void receive(TextMessage textMessage) throws JMSException {
         logger.info("消费者接受到消息：" + textMessage.getText());
     }
