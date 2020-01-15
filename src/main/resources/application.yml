@@ -10,6 +10,14 @@ spring:
     password: admin
   jms:
     pub-sub-domain: false # false = Queue true = topic
+  redis: #配置redis
+    host: 192.168.88.128
+    port: 6379
+  datasource: #配置jdbc
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
 # 自己定义的队列名称
 myQueue: boot-activemq-queue
 # 自己的topic名称

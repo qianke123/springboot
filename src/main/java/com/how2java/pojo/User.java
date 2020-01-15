@@ -1,37 +1,63 @@
 package com.how2java.pojo;
 
-public class User {
-    private long id;
-    private String name;
-    private int age;
+import org.springframework.context.annotation.Bean;
 
-    public User(long id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private long uid;
+    private String userName;
+    private int password;
+    private int salary;
+
+    public User() { }
+
+    public User(long uid, String userName, int password, int salary) {
+        this.uid = uid;
+        this.userName = userName;
+        this.password = password;
+        this.salary = salary;
     }
 
-    public long getId() {
-        return id;
+    public long getUid() {
+        return uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public int getAge() {
-        return age;
+    public int getPassword() {
+        return password;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPassword(int password) {
+        this.password = password;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", userName='" + userName + '\'' +
+                ", password=" + password +
+                ", salary=" + salary +
+                '}';
     }
 }
