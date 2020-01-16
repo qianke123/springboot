@@ -1,11 +1,10 @@
 package com.how2java.activeMq.producer;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import javax.jms.Queue;
 
 @Component
