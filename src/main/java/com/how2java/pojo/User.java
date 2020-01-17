@@ -7,12 +7,12 @@ import java.io.Serializable;
 public class User implements Serializable {
     private long uid;
     private String userName;
-    private int password;
+    private String password;
     private int salary;
 
     public User() { }
 
-    public User(long uid, String userName, int password, int salary) {
+    public User(long uid, String userName, String password, int salary) {
         this.uid = uid;
         this.userName = userName;
         this.password = password;
@@ -35,11 +35,11 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

@@ -37,4 +37,30 @@ public class HelloController {
     public User findUserById(@RequestParam("id") int id) {
         return userService.findUserById(id);
     }
+
+    @RequestMapping("/updateUser")
+    public String updateUser() {
+        User user = new User();
+        user.setUid(1);
+        user.setUserName("cat");
+        user.setPassword("miaomiao");
+        user.setSalary(40000);
+        int result = this.userService.updateUser(user);
+
+        if(result != 0) {
+            return "update user success!";
+        }
+
+        return "fail to update user!";
+    }
+
+    @RequestMapping("/deleteUserById")
+    public String deleteUserById(int id) {
+        int result = this.userService.deleteUserById(id);
+        if(result != 0) {
+            return "delete user success!";
+        }
+
+        return "fail to delete user";
+    }
 }
