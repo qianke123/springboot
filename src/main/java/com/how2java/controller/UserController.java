@@ -18,7 +18,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
-public class HelloController {
+@RequestMapping("/user")
+public class UserController {
 
     private final Logger logger = Logger.getLogger(String.valueOf(getClass()));
 
@@ -28,39 +29,25 @@ public class HelloController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping("/queryAll")
-    public List getUsers() {
-        return userService.queryAll();
+    /**
+     * 登陆验证功能
+     * @param name 用户姓名
+     * @param password 密码
+     * @return 0: 不存在用户, 1: 密码错误, 2: 登陆成功
+     */
+    @RequestMapping("/validateUserByName")
+    public Map<String, String> validateUserByName(@RequestParam("username") String name,
+                                                  @RequestParam("password") String password) {
+        return this.userService.validateUserByName(name, password);
     }
 
-    @RequestMapping("/findUserById")
-    public User findUserById(@RequestParam("id") int id) {
-        return userService.findUserById(id);
-    }
-
-    @RequestMapping("/updateUser")
-    public String updateUser() {
-        User user = new User();
-        user.setUid(1);
-        user.setUserName("cat");
-        user.setPassword("miaomiao");
-        user.setSalary(40000);
-        int result = this.userService.updateUser(user);
-
-        if(result != 0) {
-            return "update user success!";
-        }
-
-        return "fail to update user!";
-    }
-
-    @RequestMapping("/deleteUserById")
-    public String deleteUserById(int id) {
-        int result = this.userService.deleteUserById(id);
-        if(result != 0) {
-            return "delete user success!";
-        }
-
-        return "fail to delete user";
+    /**
+     * 用户注销
+     * @param fileCloudToken
+     * @return 删除成功信息
+     */
+    @RequestMapping("/userLogout")
+    public String userLogout(@RequestParam("fileCloudToken") String fileCloudToken) {
+        return this.userService.userLogout(fileCloudToken);
     }
 }

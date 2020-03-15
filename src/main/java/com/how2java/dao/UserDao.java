@@ -22,4 +22,7 @@ public interface UserDao {
 
     @Delete("delete from user where uid = #{id}")
     int deleteUserById(int id);
+
+    @Select("select * from test.user where username = #{name} ")
+    User findUserByName(String name);
 }
