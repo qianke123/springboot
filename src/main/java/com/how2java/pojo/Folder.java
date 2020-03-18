@@ -72,4 +72,16 @@ public class Folder implements Serializable {
     public void setFolderUrl(String folderUrl) {
         this.folderUrl = folderUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Folder{" +
+                "userName='" + userName + '\'' +
+                ", folderName='" + folderName + '\'' +
+                ", folderBool=" + folderBool +
+                ", date=" + date +
+                ", authority=" + authority +
+                ", folderUrl='" + folderUrl + '\'' +
+                '}';
+    }
 }

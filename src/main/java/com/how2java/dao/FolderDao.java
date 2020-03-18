@@ -28,6 +28,6 @@ public interface FolderDao {
      * @param filePath
      * @return
      */
-    @Select("SELECT * FROM test.folder where folderUrl like replace(CONCAT('%','zhangsan\\\\程序员','%'),'\\\\','%' )")
+    @Select("SELECT * FROM test.folder where folderUrl like CONCAT('%',#{filePath},'%')")
     List<Folder> getFileList(@Param("filePath") String filePath);
 }
