@@ -3,7 +3,7 @@ package com.how2java.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Folder implements Serializable {
+public class Folder implements Serializable, Comparable<Folder> {
     private String userName;
     private String folderName;
     // 是否是文件夹, 0: 不是, 1: 是
@@ -83,5 +83,10 @@ public class Folder implements Serializable {
                 ", authority=" + authority +
                 ", folderUrl='" + folderUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Folder o) {
+        return o.folderBool - this.folderBool;
     }
 }
