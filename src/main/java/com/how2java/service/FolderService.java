@@ -3,6 +3,8 @@ package com.how2java.service;
 import com.how2java.dao.FolderDao;
 import com.how2java.pojo.Folder;
 import com.how2java.util.FileUtils;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -23,6 +26,10 @@ public class FolderService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // hadoop 文件系统
+    @Autowired
+    private FileSystem fileSystem;
+
     /**
      * 创建文件（夹）
      * @param targetFilePath 文件的目标路径
@@ -31,7 +38,7 @@ public class FolderService {
      * @param fileType 文件类型
      * @return 结果信息
      */
-    public String creatFolder(String targetFilePath, String folderName, String userName, int fileType) {
+    public String creatFolder1(String targetFilePath, String folderName, String userName, int fileType) {
         String folderPath = FileUtils.fileUploadRootPath + "\\" + targetFilePath + "\\" + folderName;
         File file = new File(folderPath);
         file.mkdir();
@@ -41,6 +48,18 @@ public class FolderService {
         return "文件夹创建成功";
     }
 
+    public String creatFolder(String targetFilePath, String folderName, String userName, int fileType) {
+        String folderPath = "/" + targetFilePath + "/" + folderName;
+        try {
+            fileSystem.create(new Path(folderPath));
+            Folder folder = new Folder(userName, folderName, fileType, new Date(), 0, folderPath);
+            this.folderDao.uploadFile(folder);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "文件创建失败";
+        }
+        return "文件夹创建成功";
+    }
 
     /**
      * 上传文件
