@@ -5,11 +5,18 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 @Component
 public interface FolderDao {
+
+    /**
+     * 获取共享文件列表
+     * @param fileName
+     * @return
+     */
+    @Select("SELECT * FROM test.folder where folderUrl like CONCAT('%',#{fileName},'%') and authority = 1 And folderBool = 0;")
+    List<Folder> getTableData(@Param("fileName") String fileName);
 
     /**
      * 上传文件
@@ -35,4 +42,14 @@ public interface FolderDao {
      */
     @Delete("delete from test.folder where folderUrl like #{folderUrl}")
     int deleteFile(@Param("folderUrl") String folderUrl);
+
+    /**
+     * 更新文件权限
+     * @param filePath 文件全路径
+     * @param authority 改变之后的权限
+     * @return  0 失败 >0 成功
+     */
+    @Update("update test.folder set folder.authority = #{authority} where folderUrl = #{filePath}")
+    int changeFolderAuthority(@Param("filePath") String filePath, @Param("authority") int authority);
+
 }

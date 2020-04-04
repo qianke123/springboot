@@ -12,18 +12,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.IOException;
 
-
 @SpringBootTest(classes = Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 public class HadoopTest {
-
     @Autowired
     private FileSystem fileSystem;
 
     @Test
-    public void put() throws IOException {
-        fileSystem.delete(new Path("/hello"));
+    public void create() throws IOException {
+        fileSystem.create(new Path("/qianke"));
         fileSystem.close();
     }
 }

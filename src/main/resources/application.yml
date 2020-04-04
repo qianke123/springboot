@@ -16,9 +16,9 @@ spring:
     password:
     database: 0
   datasource: #配置jdbc
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://39.99.198.219:3306/test?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: 123
     driver-class-name: com.mysql.jdbc.Driver
 # 自己定义的队列名称
 myQueue: boot-activemq-queue
@@ -32,5 +32,5 @@ eureka:
 
 # hadoop配置
 hadoop:
-  URI: hdfs://39.99.198.219:9000
+  URL: hdfs://39.99.198.219:9000
   user: root
