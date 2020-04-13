@@ -3,18 +3,14 @@ package com.how2java.service;
 import com.how2java.dao.UserDao;
 import com.how2java.pojo.User;
 import com.how2java.util.FileCloudTokenUtil;
-import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -27,6 +23,15 @@ public class UserService {
     private RedisTemplate redisTemplate;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    /**
+     * 获取用户信息
+     * @param name 用户名
+     * @return 用户对象
+     */
+    public User getUserInfo(String name) {
+        return this.userDao.findUserByName(name);
+    }
 
     /**
      * 登陆验证功能

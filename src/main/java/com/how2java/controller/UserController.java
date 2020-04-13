@@ -1,19 +1,13 @@
 package com.how2java.controller;
 
-import com.how2java.dao.UserDao;
 import com.how2java.pojo.User;
 import com.how2java.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -28,6 +22,16 @@ public class UserController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * 返回用户信息
+     * @param name 姓名
+     * @return 用户对象
+     */
+    @RequestMapping("/getUserInfo")
+    public User getUserInfo(@RequestParam("username") String name) {
+        return this.userService.getUserInfo(name);
+    }
 
     /**
      * 登陆验证功能
@@ -50,4 +54,5 @@ public class UserController {
     public String userLogout(@RequestParam("fileCloudToken") String fileCloudToken) {
         return this.userService.userLogout(fileCloudToken);
     }
+
 }

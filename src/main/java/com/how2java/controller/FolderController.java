@@ -4,6 +4,7 @@ import com.how2java.pojo.Folder;
 import com.how2java.service.FolderService;
 import org.apache.hadoop.fs.FileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,18 @@ public class FolderController {
     private FileSystem fileSystem;
 
     private final Logger logger = Logger.getLogger(String.valueOf(getClass()));
+
+    /**
+     * 从hdfs上下载文件
+     * @param filePath
+     * @param fileName
+     * @return
+     */
+    @RequestMapping("/downloadFile")
+    public ResponseEntity<byte[]> downloadFile(@RequestParam("filePath") String filePath,
+                                               @RequestParam("fileName") String fileName) {
+        return this.folderService.downloadFile(filePath, fileName);
+    }
 
     /**
      * 获取分享文件列表

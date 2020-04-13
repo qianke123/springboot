@@ -7,6 +7,9 @@ import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +33,33 @@ public class FolderService {
      */
     @Autowired
     private FileSystem fileSystem;
+
+    /**
+     * 从hdfs上下载文件
+     * @param filePath
+     * @param fileName
+     * @return
+     */
+    public ResponseEntity<byte[]> downloadFile(String filePath, String fileName) {
+        try {
+            // 下载文件到本地
+            this.fileSystem.copyToLocalFile(new Path(filePath), new Path(fileName));
+            // 从本地到浏览器
+            File file = new File(fileName);
+            byte[] body = null;
+            InputStream is = new FileInputStream(file);
+            body = new byte[is.available()];
+            is.read(body);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+            HttpStatus statusCode = HttpStatus.OK;
+            ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+            return entity;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * shareCenter: search files
